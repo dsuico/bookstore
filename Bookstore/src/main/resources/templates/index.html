@@ -1,0 +1,152 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+  <head th:replace="common/header :: common-header " />
+
+  <body>
+	<div th:replace="common/header :: navbar" />
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-8 col-md-8">
+				<div class="card">
+					<div class="card-body">
+						<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+							<div class="carousel-indicators">
+							    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+							    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+							    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+							</div>
+						  	<div class="carousel-inner">
+							    <div class="carousel-item active">
+							      <img src="https://picsum.photos/id/237/1600/500" class="d-block w-100" alt="...">
+							      <div class="carousel-caption">
+							      	<h4>First thumbnail label</h4>
+							      	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							      </div>
+							    </div>
+							    <div class="carousel-item">
+							      <img src="https://picsum.photos/id/238/1600/500" class="d-block w-100" alt="...">
+							      <div class="carousel-caption">
+							      	<h4>Second thumbnail label</h4>
+							      	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							      </div>
+						    	</div>
+							    <div class="carousel-item">
+							      <img src="https://picsum.photos/id/239/1600/500" class="d-block w-100" alt="...">
+							      <div class="carousel-caption">
+							      	<h4>Third thumbnail label</h4>
+							      	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							      </div>
+							    </div>
+						  	</div>
+						  	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						    	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						    	<span class="visually-hidden">Previous</span>
+						  	</button>
+						  	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						    	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						    	<span class="visually-hidden">Next</span>
+						  	</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-4 col-md-4"><img src="/image/logo.png" class="w-100" /></div>
+		</div>
+		
+		<hr />
+		
+		<div class="row">
+			<div class="col-4">
+				<div class="card">
+					<div class="card-body">
+					 <img src="/image/bestseller.png" class="w-100" />
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="card">
+					<div class="card-body">
+					 <img src="/image/hours.png" class="w-100" />
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="card">
+					<div class="card-body">
+					 <img src="/image/faq.png" class="w-100" />
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="mt-5">
+			<div class="home-headline"><span>Featured Books</span></div>
+			<hr style="margin-top: -15px" />
+		</div>
+		
+		<div class="row">
+			<div id="featuredBooks" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-indicators">
+				    <button type="button" data-bs-target="#featuredBooks" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				    <button type="button" data-bs-target="#featuredBooks" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				    <button type="button" data-bs-target="#featuredBooks" data-bs-slide-to="2" aria-label="Slide 3"></button>
+				</div>
+			  	<div class="carousel-inner">
+				    <div class="carousel-item active">
+				    	<img src="/image/shelf.png" class="w-100" />
+				    	<div class="carousel-caption">
+					    	<div class="row">
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    	</div>
+				    	</div>
+				    </div>
+				    <div class="carousel-item">
+				    	<img src="/image/shelf.png" class="w-100" />
+				    	<div class="carousel-caption">
+					    	<div class="row">
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    	</div>
+				    	</div>
+			    	</div>
+				    <div class="carousel-item">
+				    	<img src="/image/shelf.png" class="w-100" />
+				    	<div class="carousel-caption">
+					    	<div class="row">
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    		<div class="col-2"><img class="w-100" src="/image/book1.png" /></div>
+					    	</div>
+				    	</div>
+				    </div>
+			  	</div>
+			  	<button class="carousel-control-prev" type="button" data-bs-target="#featuredBooks" data-bs-slide="prev">
+			    	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    	<span class="visually-hidden">Previous</span>
+			  	</button>
+			  	<button class="carousel-control-next" type="button" data-bs-target="#featuredBooks" data-bs-slide="next">
+			    	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    	<span class="visually-hidden">Next</span>
+			  	</button>
+			</div>		
+		</div>
+	</div>
+	<!-- end of container -->
+
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+  </body>
+</html>
