@@ -1,0 +1,128 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+  <head th:replace="common/header :: common-header " />
+
+  <body>
+	<div th:replace="common/header :: navbar" />
+	
+	<div class="container">
+		<div class="row" style="margin-bottom: -100px;">
+			<div class="col-8">
+				<h2 class="section-headline"><span>User Account</span></h2>
+			</div>
+			<div class="col-4" style="z-index: 1;">
+				<img src="/image/logo.png" class="w-100 img-responsive" />
+			</div>
+		</div>
+		<hr style="position: absolute; width: 100%; height: 6px; background-color: #333; z-index: -1; margin-top: -50px; left: 0;" />
+		<img class="w-100" src="/image/wood.png" style="margin-top: 30px;" />
+		
+		<div class="row" style="margin-top: 120px;">
+			<div class="col-9 offset-3">
+				<nav>
+					<div class=" nav nav-tabs">
+						<button 
+							class="nav-link"
+							th:classappend="${classActiveNewUser} ? 'active'"
+							id="nav-new-account-tab" data-bs-toggle="tab"
+							data-bs-target="#nav-new-account"
+							type="button" role="tab"
+							aria-controls="nav-new-account"
+							aria-selected="true">
+							<span style="color: red;">Create new account</span>
+						</button>
+						<button 
+							class="nav-link"
+							th:classappend="${classActiveLogin} ? 'active'"
+							id="nav-login-tab" data-bs-toggle="tab"
+							data-bs-target="#nav-login"
+							type="button" role="tab"
+							aria-controls="nav-login"
+							aria-selected="false">
+							<span style="color: red;">Login</span>
+						</button>
+						<button 
+							class="nav-link"
+							th:classappend="${classActiveForgetPassword} ? 'active'"
+							id="nav-forget-password-tab" data-bs-toggle="tab"
+							data-bs-target="#nav-forget-password"
+							type="button" role="tab"
+							aria-controls="nav-forget-password"
+							aria-selected="false">
+							<span style="color: red;">Forget Password</span>
+						</button>
+					</div>
+				</nav>
+				<div class="tab-content show" id="nav-tabContent">
+				  <div class="tab-pane fade" id="nav-new-account" th:classappend="${classActiveNewUser} ? 'show active'" role="tabpanel" aria-labelledby="nav-new-account">
+				  	<div class="panel-group">
+				  		<div class="panel panel-default" style="border: none;">
+				  			<div class="panel-body" style="background-color: #ededed; margin-top: 20px">
+				  				<form>
+				  					<div class="form-group">
+				  						<label for="newUsername">* Username:</label>
+				  						<input required="required" type="text" class="form-control" id="username" name="username" />
+				  						<p style="color: #828282;">Enter your username.</p>
+				  					</div>
+				  					<div class="form-group">
+				  						<label for="email">* Email Address:</label>
+				  						<input required="required" type="text" class="form-control" id="email" name="email" />
+				  						<p style="color: #828282;">A valid email address.</p>
+				  					</div>
+				  					
+				  					<button type="submit" class="btn btn-primary"> Create a new account </button>
+				  				</form>
+				  			</div>
+				  		</div>
+				  	</div>
+				  </div>
+				  <div class="tab-pane fade" id="nav-login" th:classappend="${classActiveLogin} ? 'show active'" role="tabpanel" aria-labelledby="nav-login">
+				  	<div class="panel-group">
+				  		<div class="panel panel-default" style="border: none;">
+				  			<div class="panel-body" style="background-color: #ededed; margin-top: 20px">
+				  				<form>
+				  					<div class="form-group">
+				  						<label for="newUsername">* Username:</label>
+				  						<input required="required" type="text" class="form-control" id="username" name="username" />
+				  						<p style="color: #828282;">Enter your username here.</p>
+				  					</div>
+				  					<div class="form-group">
+				  						<label for="password">* Password:</label>
+				  						<input required="required" type="password" class="form-control" id="password" name="password" />
+				  						<p style="color: #828282;">Enter password.</p>
+				  					</div>
+				  					
+				  					<button type="submit" class="btn btn-primary">Log in</button>
+				  				</form>
+				  			</div>
+				  		</div>
+				  	</div>
+				  </div>
+				  <div class="tab-pane fade" id="nav-forget-password" th:classappend="${classActiveForgetPassword} ? 'show active'" role="tabpanel" aria-labelledby="nav-forget-password">
+				  	<div class="panel-group">
+				  		<div class="panel panel-default" style="border: none;">
+				  			<div class="panel-body" style="background-color: #ededed; margin-top: 20px">
+				  				<form>
+				  					<div class="form-group">
+				  						<label for="recoverEmail">* Your Email:</label>
+				  						<input required="required" type="text" class="form-control" id="recoverEmail" name="email" />
+				  						<p style="color: #828282;">Enter your registered email address.</p>
+				  					</div>
+				  					
+				  					<button type="submit" class="btn btn-primary">Submit</button>
+				  				</form>
+				  			</div>
+				  		</div>
+				  	</div>
+				  </div>
+				</div>
+			</div> 
+		</div>
+	</div>
+	<!-- end of container -->
+
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+  </body>
+</html>
