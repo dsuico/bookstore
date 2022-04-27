@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
   <head th:fragment="common-header">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -7,14 +7,14 @@
 
     <title>Bookstore</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/navbars/" />
-
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Custom styles for this template -->
     <link href="/css/style.css" rel="stylesheet" />
-    
+    <link href="/css/font-awesome.min.css" rel="stylesheet" />
+        <link th:href="@{/css/jquery.dataTables.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/dataTables.bootstrap.min.css}" rel="stylesheet" />
     <link rel="icon" href="/image/apple-touch-icon.png" />
   </head>
 
@@ -34,7 +34,7 @@
 	            	BOOKS
 	          	</a>
 	            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	              <a class="dropdown-item" href="#">Browse the bookshelf</a>
+	              <a class="dropdown-item" th:href="@{/bookshelf}">Browse the bookshelf</a>
 	              <a class="dropdown-item" href="#">Store hours &#38; Directions</a>
 	              <a class="dropdown-item" href="#">FAQ</a>
 	            </div>
@@ -47,21 +47,28 @@
 		    <ul class="navbar-nav ms-auto">
 		    
 	          <li class="nav-item">
-	            <a class="nav-link" href="#">SHOPPING CART</a>
+	            <a class="nav-link" th:href="@{/shopping-cart}">SHOPPING CART</a>
 	          </li>
 	          <li class="nav-item">
-	            <a class="nav-link" href="#" th:href="@{/login}">MY ACCOUNT</a>
+	            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">MY ACCOUNT</a>
 	          </li>
 	          <li class="nav-item">
-	            <a class="nav-link" href="#">LOGOUT</a>
+	            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/my-profile}">MY ACCOUNT</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}" >LOGOUT</a>
 	          </li>
 		    </ul>
 	    </nav>
 	</div>
 	
 	<div th:fragment="body-bottom-scripts">
-	    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	    <script th:src="@{/js/jquery.min.js}"></script>
 	    <script src="/js/bootstrap.min.js"></script>	
+	    
+	    	    <script th:src="@{/js/jquery.dataTables.min.js}"></script>	
+	    <script th:src="@{/js/dataTables.bootstrap.min.js}"></script>	
+	    <script th:src="@{/js/scripts.js}"></script>	
 	</div>
   </body>
   </html>
