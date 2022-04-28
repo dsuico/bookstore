@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.bookstore.domain.User;
 import com.bookstore.domain.UserBilling;
 import com.bookstore.domain.UserPayment;
+import com.bookstore.domain.UserShipping;
 import com.bookstore.service.UserPaymentService;
 import com.bookstore.service.UserService;
 import com.bookstore.utility.USConstants;
@@ -84,12 +85,16 @@ public class CreditCardController {
 		
 		UserPayment userPayment = new UserPayment();
 		UserBilling userBilling = new UserBilling();
+		UserShipping userShipping = new UserShipping();
 		model.addAttribute("userBilling", userBilling);
 		model.addAttribute("userPayment", userPayment);
-		model.addAttribute("addNewCreditCard", true);
-		model.addAttribute("classActiveBilling", true);
+		model.addAttribute("userShipping", userShipping);
+
 		model.addAttribute("listOfCreditCards", false);
-		model.addAttribute("listOfShippingAddresses", true);
+		model.addAttribute("classActiveBilling", true);
+		model.addAttribute("addNewShippingAddress", true);
+		model.addAttribute("addNewCreditCard", true);
+		model.addAttribute("listOfShippingAddresses", false);
 		
 		return "myProfile";
 	}
@@ -139,7 +144,7 @@ public class CreditCardController {
 		return "redirect:/credit-cards";
 	}
 	
-	@RequestMapping(value = "/set-default", method=RequestMethod.POST)
+	@RequestMapping(value = "/set-default", method=RequestMethod.GET)
 	public String setDefault(@ModelAttribute("defaultUserPaymentId") Long defaultUserPaymentId, Model model, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
 		userService.setDefaultPayment(defaultUserPaymentId, user);

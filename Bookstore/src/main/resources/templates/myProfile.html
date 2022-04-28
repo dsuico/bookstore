@@ -66,7 +66,7 @@
 				</nav>
 				<div class="tab-content show" id="nav-tabContent">
 					<!-- Edit User Information -->
-				  	<div class="tab-pane fade" id="nav-edit" th:classappend="${classActiveEdit} ? 'show active'" role="tabpanel" aria-labelledby="nav-login">
+				  	<div class="tab-pane fade" id="nav-edit" th:classappend="${classActiveEdit} ? 'show active'" role="tabpanel" aria-labelledby="nav-edit">
 					  	<div class="panel-group">
 					  		<div class="panel panel-default" style="border: none;">
 					  			<div class="panel-body" style="background-color: #ededed; margin-top: 20px">
@@ -139,7 +139,7 @@
 				  	</div>
 				  	
 				  	<!-- Order Information -->
-					<div class="tab-pane fade" id="nav-orders" th:classappend="${classActiveOrders} ? 'show active'" role="tabpanel" aria-labelledby="nav-login">
+					<div class="tab-pane fade" id="nav-orders" th:classappend="${classActiveOrders} ? 'show active'" role="tabpanel" aria-labelledby="nav-orders">
 					  	<div class="panel-group">
 					  		<div class="panel panel-default" style="border: none;">
 					  			<div class="panel-body" style="background-color: #ededed; margin-top: 20px">
@@ -150,7 +150,7 @@
 					</div>
 
 				  	<!-- Billing Information -->
-					<div class="tab-pane fade" id="nav-billing" th:classappend="${classActiveBilling} ? 'show active'" role="tabpanel" aria-labelledby="nav-login">
+					<div class="tab-pane fade" id="nav-billing" th:classappend="${classActiveBilling} ? 'show active'" role="tabpanel" aria-labelledby="nav-billing">
 					  	<div class="panel-group">
 					  		<div class="panel panel-default" style="border: none;">
 					  			<div class="panel-body" style="background-color: #ededed; margin-top: 20px">
@@ -166,7 +166,7 @@
 									</nav>
 									
 									<div th:if="${listOfCreditCards}">
-										<form th:action="@{/credit-cards/set-default}" method="post">
+										<form th:action="@{/credit-cards/set-default}" method="get">
 											<table class="table">
 												<thead>
 													<tr>
@@ -411,7 +411,7 @@
 									</nav>
 									
 									<div th:if="${listOfShippingAddresses}">
-										<form th:action="@{/shipping-addresses/set-default}" method="post">
+										<form th:action="@{/shipping-addresses/set-default}" method="get">
 											<table class="table">
 												<thead>
 													<tr>

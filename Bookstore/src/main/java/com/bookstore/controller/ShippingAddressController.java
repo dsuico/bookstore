@@ -127,7 +127,7 @@ public class ShippingAddressController {
 		return "myProfile";
 	}
 	
-	@RequestMapping(value = "/set-default", method=RequestMethod.POST)
+	@RequestMapping(value = "/set-default")
 	public String setDefault(@ModelAttribute("defaultShippingAddressId") Long defaultShippingAddressId, Model model, Principal principal) {
 		
 		User user = userService.findByUsername(principal.getName());
