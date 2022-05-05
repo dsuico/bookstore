@@ -31,7 +31,10 @@ public class Order {
 	private List<CartItem> cartItemList;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	private ShippingAddress shippingAdress;
+	private ShippingAddress shippingAddress;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private BillingAddress billingAddress;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Payment payment;
@@ -95,20 +98,30 @@ public class Order {
 		this.cartItemList = cartItemList;
 	}
 
-	public ShippingAddress getShippingAdress() {
-		return shippingAdress;
-	}
-
-	public void setShippingAdress(ShippingAddress shippingAdress) {
-		this.shippingAdress = shippingAdress;
-	}
-
 	public Payment getPayment() {
 		return payment;
 	}
 
 	public void setPayment(Payment payment) {
 		this.payment = payment;
+	}
+	
+	
+
+	public ShippingAddress getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(ShippingAddress shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	public BillingAddress getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(BillingAddress billingAddress) {
+		this.billingAddress = billingAddress;
 	}
 
 	public User getUser() {

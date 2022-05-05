@@ -24,6 +24,9 @@ public class BillingAddress {
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private Payment payment;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	private Order order;
 
 	public Long getId() {
 		return id;
@@ -97,5 +100,11 @@ public class BillingAddress {
 		this.payment = payment;
 	}
 
-	
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
 }

@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -20,7 +21,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.bookstore.domain.security.Authority;
 import com.bookstore.domain.security.UserRole;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class User implements UserDetails{
@@ -48,9 +48,15 @@ public class User implements UserDetails{
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<UserPayment> userPaymentList;
 	
+	@OneToMany(mappedBy = "user")
+	private List<Order> orderList;
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
-	private Set<UserRole> userRoles = new HashSet<>();
+	private Set<UserRole> userRoles;
+	
+	public User() {
+		userRoles = new HashSet<>();
+	}
 	
 	public Long getId() {
 		return id;
@@ -125,6 +131,16 @@ public class User implements UserDetails{
 		this.shoppingCart = shoppingCart;
 	}
 	
+	
+	
+	public List<Order> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(List<Order> orderList) {
+		this.orderList = orderList;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Set<GrantedAuthority> authorities = new HashSet<>();

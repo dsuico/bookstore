@@ -20,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -30,10 +31,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bookstore.domain.Book;
 import com.bookstore.domain.User;
+import com.bookstore.domain.UserShipping;
 import com.bookstore.domain.security.PasswordResetToken;
 import com.bookstore.domain.security.Role;
 import com.bookstore.domain.security.UserRole;
 import com.bookstore.service.BookService;
+import com.bookstore.service.RoleService;
 import com.bookstore.service.UserService;
 import com.bookstore.service.impl.UserSecurityService;
 import com.bookstore.utility.MailConstructor;
@@ -59,6 +62,9 @@ public class HomeController {
 	
 	@Autowired
 	private BookService bookService;
+	
+	@Autowired
+	private RoleService roleService;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -106,10 +112,9 @@ public class HomeController {
 
 		model.addAttribute("userPaymentList", user.getUserPaymentList());
 		model.addAttribute("userShippingList", user.getUserShippingList());
-		/*model.addAttribute("orderList", user.getOrderList());*/
+		model.addAttribute("orderList", user.getOrderList());
 		
-//		UserShipping userShipping = new UserShipping();
-//		model.addAttribute("userShipping", userShipping);
+		model.addAttribute("userShipping", new UserShipping());
 
 		
 		List<String> stateList = USConstants.listOfUSStatesCode;
@@ -158,6 +163,63 @@ public class HomeController {
 		return "myAccount";
 	}
 	
+	@RequestMapping(value="/user/update",method=RequestMethod.POST)
+	public String updateUserInfo(
+			@ModelAttribute("user") User user,
+			@ModelAttribute("newPassword") String newPassword,
+			Model model
+			) throws Exception {
+		User currentUser = userService.findById(user.getId());
+		
+		if(currentUser == null) {
+			throw new Exception ("User not found");
+		}
+		
+		if(userService.findByEmail(user.getEmail()) != null) {
+			if(userService.findByEmail(user.getEmail()).getId() != currentUser.getId()) {
+				model.addAttribute("emailExists", true);
+				return "myProfile";
+			}
+		}
+		
+		if(userService.findByUsername(user.getUsername()) != null) {
+			if(userService.findByUsername(user.getUsername()).getId() != currentUser.getId()) {
+				model.addAttribute("usernameExists", true);
+				return "myProfile";
+			}
+		}
+		
+		if(newPassword != null & !newPassword.isEmpty() && !newPassword.equals("")) {
+			BCryptPasswordEncoder passwordEncoder = SecurityUtility.passwordEncoder();
+			String dbPassword = currentUser.getPassword();
+			if(passwordEncoder.matches(user.getPassword(), dbPassword)) {
+				currentUser.setPassword(passwordEncoder.encode(newPassword));
+			} else {
+				model.addAttribute("incorrectPassword", true);
+			}
+		}
+		
+		currentUser.setFirstName(user.getFirstName()); 
+		currentUser.setLastName(user.getLastName());
+		currentUser.setUsername(user.getUsername());
+		currentUser.setEmail(user.getEmail());
+		
+		userService.save(currentUser);
+		
+		model.addAttribute("updateSuccess", true);
+		model.addAttribute("user", currentUser);
+		model.addAttribute("classActiveEdit", true);
+		
+		
+		UserDetails userDetails = userSecurityService.loadUserByUsername(currentUser.getUsername());
+		
+		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		return "redirect:/my-profile";
+	}
+	
 	@RequestMapping(value="/new-user", method=RequestMethod.POST)
 	public String newUserPost(
 			HttpServletRequest request,
@@ -192,9 +254,7 @@ public class HomeController {
 		
 		user.setPassword(encryptedPassword);
 		
-		Role role = new Role();
-		role.setRoleId(1);
-		role.setName("ROLE_USER");
+		Role role = roleService.findById(1);
 		Set<UserRole> userRoles = new HashSet<>();
 		userRoles.add(new UserRole(user, role));
 		userService.createUser(user, userRoles);

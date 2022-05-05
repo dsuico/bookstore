@@ -4,7 +4,7 @@
   <head th:replace="common/header :: common-header " />
 
   <body>
-	<div th:replace="common/header :: navbar" />
+	<div th:replace="common/header :: navbar"></div>
 	
 	<div class="container">
 		<div class="row" style="margin-bottom: -100px;">
@@ -70,7 +70,7 @@
 					  	<div class="panel-group">
 					  		<div class="panel panel-default" style="border: none;">
 					  			<div class="panel-body" style="background-color: #ededed; margin-top: 20px">
-					  				<form th:action="@{/updateUserInfo}" method="post">
+					  				<form th:action="@{/user/update}" method="post">
 					  					<input type="hidden" name="id" th:value="${user.id}" />
 					  					
 					  					<div class="bg-info" th:if="${updateUserInfo}">User info updated.</div>
@@ -95,10 +95,10 @@
 					  					<div class="form-group"> 
 					  						<label for="currentPassword">Current Password</label>
 					  						<input 
-					  							type="text"
+					  							type="password"
 					  							class="form-control"
 					  							id="currentPassword"
-					  							name="currentPassword" />
+					  							name="password" />
 					  					</div>
 					  					
 					  					<p style="color:#828282">Enter your current password to change the email address or password.</p>
@@ -115,7 +115,7 @@
 					  					<p style="color:#828282">A valid email</p>
 					  					
 					  					<div class="form-group">
-					  						<label for="txtNewPassword">Password</label>
+					  						<label for="txtNewPassword">Password</label>&nbsp;<span id="checkPasswordMatch" style="color: red;"></span>
 					  						<input 
 					  							type="password"
 					  							class="form-control"
@@ -124,14 +124,14 @@
 					  							 />
 					  					</div>
 					  					<div class="form-group">
-					  						<label for="txtConfirmPassword">Password</label>
+					  						<label for="txtConfirmPassword">Confirm Password</label>
 					  						<input 
 					  							type="password"
 					  							class="form-control"
 					  							id="txtConfirmPassword" />
 					  					</div>				  					
 					  					<p style="color:#828282">To change the current user password, enter the new password in both fields.</p>
-					  					<button type="submit" class="btn btn-primary">Update</button>
+					  					<button type="submit" id="updateUserInfoButton" class="btn btn-primary">Save</button>
 					  				</form>
 					  			</div>
 					  		</div>
@@ -143,7 +143,123 @@
 					  	<div class="panel-group">
 					  		<div class="panel panel-default" style="border: none;">
 					  			<div class="panel-body" style="background-color: #ededed; margin-top: 20px">
+					  				<table class="table table-sm table-inverse">
+					  					<thead>
+					  						<tr>
+					  							<th>Order Date</th>
+					  							<th>Order Number</th>
+					  							<th>Total</th>
+					  							<th>Status</th>
+					  						</tr>
+					  					</thead>
+					  					<tbody>
+					  						<tr th:each="order : ${orderList}">
+					  							<td><a th:href="@{/orders/}+${order.id}"><span th:text="${order.orderDate}"></span></a></td>
+					  							<td th:text="${order.id}"></td>
+					  							<td th:text="${order.orderTotal}"></td>
+					  							<td th:text="${order.orderStatus}"></td>
+					  						</tr>
+					  					</tbody>
+					  				</table>
 					  				
+					  				<div th:if="${displayOrderDetail}">
+					  					<div class="row">
+					  						<div class="col-12">
+					  							<div class="text-center">
+					  								<h2>Order Detail for Purchase #<span th:text="${order.id}"></span></h2>
+					  							</div>
+					  							<hr/>
+					  							<div class="row">
+					  								<div class="col-4">
+					  									<div class="card">
+					  										<div class="card-header"><strong>Billing Details</strong></div>
+					  										<div class="card-body">
+					  											<span th:text="${order.billingAddress.billingAddressName}"></span><br/>
+					  											<span th:text="${order.billingAddress.billingAddressStreet1}+' ' +${order.billingAddress.billingAddressStreet2}"></span><br/>
+					  											<span th:text="${order.billingAddress.billingAddressCity}"></span><br/>
+					  											<span th:text="${order.billingAddress.billingAddressState}"></span><br/>
+					  											<span th:text="${order.billingAddress.billingAddressZipcode}"></span><br/>
+					  										</div>
+					  									</div>
+					  								</div>
+					  								<div class="col-4">
+					  									<div class="card">
+					  										<div class="card-header"><strong>Payment Information</strong></div>
+					  										<div class="card-body">
+					  											<span th:text="${order.payment.holderName}">Card Name</span><br/>
+					  											<span th:text="${order.payment.cardNumber}">Card Number</span><br/>
+					  											<span>Exp Date:</span> <span th:text="${order.payment.expiryMonth}"></span>/<span th:text="${order.payment.expiryYear}"></span><br/>
+					  										</div>
+					  									</div>					
+					  								</div>
+					  								<div class="col-4">
+					  									<div class="card">
+					  										<div class="card-header"><strong>Billing Details</strong></div>
+					  										<div class="card-body">
+					  											<span th:text="${order.shippingAddress.shippingAddressName}"></span><br/>
+					  											<span th:text="${order.shippingAddress.shippingAddressStreet1}+' ' +${order.shippingAddress.shippingAddressStreet2}"></span><br/>
+					  											<span th:text="${order.shippingAddress.shippingAddressCity}"></span><br/>
+					  											<span th:text="${order.shippingAddress.shippingAddressState}"></span><br/>
+					  											<span th:text="${order.shippingAddress.shippingAddressZipcode}"></span><br/>
+					  										</div>
+					  									</div>					  								
+					  								</div>
+					  							</div>
+					  						</div>
+					  					</div>
+					  					<div class="row">
+					  						<div class="col-12">
+			  									<div class="card">
+			  										<div class="card-header">
+			  											<h3 class="text-center">Order Summary</h3>
+			  										</div>
+			  										<div class="card-body">
+			  											<div class="table-responsive">
+			  												<table class="table table-condensed">
+			  													<thead>
+			  														<tr>
+			  															<td><strong>Item Name</strong></td>
+			  															<td class="text-center"><strong>Item Price</strong></td>
+			  															<td class="text-center"><strong>Item Quantity</strong></td>
+			  															<td class="text-right"><strong>Total</strong></td>
+			  														</tr>
+			  													</thead>
+			  													<tbody>
+			  														<tr th:each="cartItem : ${cartItemList}">
+			  															<td th:text="${cartItem.book.title}"></td>
+			  															<td class="text-center" th:text="${cartItem.book.ourPrice}"></td>
+			  															<td class="text-center" th:text="${cartItem.qty}"></td>
+			  															<td class="text-center" th:text="${cartItem.subtotal}"></td>
+			  														</tr>
+			  														<tr>
+																		<td class="highrow"></td>
+																		<td class="highrow"></td>
+																		<td class="highrow text-center"><strong>Subtotal</strong></td>
+																		<td class="highrow text-end" data-th-text="${order.orderTotal}"></td>
+																	</tr>	
+																	<tr>
+																		<td class="emptyrow"></td>
+																		<td class="emptyrow"></td>
+																		<td class="emptyrow text-center"><strong>Tax</strong></td>
+																		<td class="emptyrow text-end" data-th-text="${#numbers.formatDecimal(order.orderTotal*0.06, 0, 2)}"></td>
+																	</tr>
+																	<tr>
+																		<td class="emptyrow"><i class="fa fa-barcode iconbig"></i></td>
+																		<td class="emptyrow"></td>
+																		<td class="emptyrow text-center"><strong>Total</strong></td>
+																		<td class="emptyrow text-right"
+																			th:with="total=${order.orderTotal+order.orderTotal*0.06}"
+																			data-th-text="${#numbers.formatDecimal(total, 0, 2)}">
+																		</td>
+																	</tr>
+			  													</tbody>
+			  												</table>
+			  											</div>
+			  										</div>
+			  									</div>
+					  						</div>
+					  					</div>
+					  				</div>
 					  			</div>
 					  		</div>
 					  	</div>
@@ -546,6 +662,6 @@
 	<!-- end of container -->
 
 
-	<div th:replace="common/header :: body-bottom-scripts" />
+	<div th:replace="common/header :: body-bottom-scripts"></div>
   </body>
 </html>

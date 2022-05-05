@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import com.bookstore.domain.UserBilling;
 import com.bookstore.domain.UserPayment;
 import com.bookstore.domain.UserShipping;
 import com.bookstore.domain.security.PasswordResetToken;
+import com.bookstore.domain.security.Role;
 import com.bookstore.domain.security.UserRole;
 import com.bookstore.repository.PasswordResetTokenRepository;
 import com.bookstore.repository.RoleRepository;
@@ -66,31 +69,39 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public User findById(Long id) {
+		return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id.toString()));
+	}
+	
+	@Override
 	@Transactional
 	public User createUser(User user, Set<UserRole> userRoles) throws Exception {
 		User localUser = userRepository.findByUsername(user.getUsername());
 		
 		if(localUser != null) {
 			LOG.info("user {} already exists.", user.getUsername());
-		} else {
-			for (UserRole ur : userRoles) {
-				if(roleRepository.findByName(ur.getRole().getName()) != null)
-					roleRepository.save(ur.getRole());
-			}
-			
-			user.getUserRoles().addAll(userRoles);
-			
-			ShoppingCart shoppingCart = new ShoppingCart();
-			shoppingCart.setUser(user);
-			user.setShoppingCart(shoppingCart);
-			
-			user.setUserShippingList(new ArrayList<UserShipping>());
-			user.setUserPaymentList(new ArrayList<UserPayment>());
-			
-			localUser = userRepository.save(user);
+			return localUser;
 		}
 		
-		return localUser;
+		for (UserRole ur : userRoles) {
+			if(roleRepository.findByName(ur.getRole().getName()) == null) {
+				LOG.info(ur.getRole().getRoleId()+ " " + ur.getRole().getName());
+				roleRepository.save(ur.getRole());
+			}
+		}
+		
+		user.getUserRoles().addAll(userRoles);
+		
+		ShoppingCart shoppingCart = new ShoppingCart();
+		shoppingCart.setUser(user);
+		user.setShoppingCart(shoppingCart);
+		
+		user.setUserShippingList(new ArrayList<UserShipping>());
+		user.setUserPaymentList(new ArrayList<UserPayment>());
+		
+		localUser = userRepository.save(user);
+		
+		return user;
 	}
 	
 	@Override

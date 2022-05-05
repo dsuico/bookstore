@@ -46,8 +46,8 @@ public class ShoppingCartController {
 		shoppingCartService.updateShoppingCart(shoppingCart);
 		
 		model.addAttribute("cartItemList", cartItemList);
-		model.addAttribute("shoppingCart", shoppingCart)
-		;
+		model.addAttribute("shoppingCart", shoppingCart);
+		
 		return "shoppingCart";
 	}
 	

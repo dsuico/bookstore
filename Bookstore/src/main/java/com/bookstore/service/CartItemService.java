@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bookstore.domain.Book;
 import com.bookstore.domain.CartItem;
+import com.bookstore.domain.Order;
 import com.bookstore.domain.ShoppingCart;
 import com.bookstore.domain.User;
 
@@ -18,4 +19,9 @@ public interface CartItemService {
 	CartItem findById(Long id);
 	
 	void removeById(CartItem cartItem);
+	
+	CartItem save(CartItem cartItem);
+	
+	List<CartItem> findByOrder(Order order);
+	
 }
