@@ -23,7 +23,7 @@
 	  	<div class="page-top" style="width:100%; height:20px; background-color: #f46b42;"></div>
 		<!-- static navbar -->
 	    <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
-	      <a class="navbar-brand" href="#">Bookstore</a>
+	      <a class="navbar-brand" th:href="@{/}">Bookstore</a>
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="navbar-toggler-icon"></span>
 	      </button>
@@ -35,12 +35,12 @@
 	          	</a>
 	            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	              <a class="dropdown-item" th:href="@{/bookshelf}">Browse the bookshelf</a>
-	              <a class="dropdown-item" href="#">Store hours &#38; Directions</a>
-	              <a class="dropdown-item" href="#">FAQ</a>
+	              <a class="dropdown-item" th:href="@{/hours}">Store hours &#38; Directions</a>
+	              <a class="dropdown-item" th:href="@{/faq}">FAQ</a>
 	            </div>
 	          </li>
 	        </ul>
-		      <form class="d-flex">
+		      <form class="d-flex" th:action="@{/searchBook}" method="get">
 		        <input class="form-control me-2" name="keyword" type="search" placeholder="Book title" aria-label="Search">
 		        <button class="btn btn-outline-success" type="submit">Search</button>
 		      </form>
@@ -60,6 +60,64 @@
 	          </li>
 		    </ul>
 	    </nav>
+	</div>
+	
+	<div th:fragment="footer">
+		<br/><br/>
+		<footer>
+			<div class="row g-0">
+				<div class="col-3">
+					<div class="logofooter">
+						<a th:href="@{/}"><img class="img-fluid" src="/image/logo.png" style="width:200px;" /></a>
+					</div>
+					<p>David's Independent Book Storee. <br/> Serving our customers with the best.</p>
+				</div>
+				<div class="col-3">
+					<h6 class="heading7">CONTACT</h6>
+					<ul class="post">
+						<p>
+							<i class="fa fa-map-pin"></i> 123 XXX Ave<br /> Boston MA, USA
+							02112
+						</p>
+						<p>
+							<i class="fa fa-phone"></i> Phone (USA) : +1 999 999 9999
+						</p>
+						<p>
+							<i class="fa fa-envelope"></i> E-mail : info@davidbookstore.com
+						</p>
+					</ul>
+				</div>
+				<div class="col-3">
+					<h6 class="heading7">LINKS</h6>
+					<ul class="footer-ul">
+						<li><a href="#"> Privacy Policy</a></li>
+						<li><a href="#"> Terms &#38; Conditions</a></li>
+						<li><a href="#"> Frequently Ask Questions</a></li>
+					</ul>
+				</div>
+				<div class="col-3">
+					<h6 class="heading7">STORE HOURS</h6>
+					<div class="post">
+						<p>Monday - Saturday: 9am - 11pm</p>
+						<p>Sunday: 10am - 10pm</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<div class="row g-0 copyright">
+			<div class="col-md-6">
+				<p>© 2022 - All Rights Reserved</p>
+			</div>
+			<div class="col-md-6">
+				<ul class="bottom_ul">
+					<li><a href="#">About us</a></li>
+					<li><a href="#">Blog</a></li>
+					<li><a href="#">Faq's</a></li>
+					<li><a href="#">Contact us</a></li>
+					<li><a href="#">Site Map</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
 	
 	<div th:fragment="body-bottom-scripts">

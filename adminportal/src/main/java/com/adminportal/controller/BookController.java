@@ -37,6 +37,19 @@ public class BookController {
 		return "addBook";
 	}
 	
+	@RequestMapping(value="/remove", method=RequestMethod.POST)
+	public String remove(
+		@ModelAttribute("id") String id,
+		Model model
+			) {
+		bookService.removeById(Long.parseLong(id.substring(8)));
+		List<Book> bookList = bookService.findAll();
+		model.addAttribute("bookList",bookList);
+		
+		return "redirect:/books";
+				
+	}
+	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String addBookPost(
 		@ModelAttribute("book") Book book,

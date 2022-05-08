@@ -19,8 +19,19 @@
 		<img class="w-100" src="/image/wood.png" style="margin-top: 30px;" />
 		
 		<div class="row" style="margin-top: 120px;">
-			<div class="col-9 offset-3">
-				<div th:if="${emptyList}">
+			<div class="col-3">
+				<h3><label for="category">Category</label></h3>
+				<div class="list-group" id="category">
+					<a th:href="@{/bookshelf(category='all')}" th:classapend="${activeAll}? 'active'"  class="list-group-item list-group-item-action">All</a>
+					<a th:href="@{/searchByCategory(category='Management')}" th:classapend="${activeManagemenet}? 'active'"  class="list-group-item list-group-item-action">Management</a>
+					<a th:href="@{/searchByCategory(category='Fiction')}" th:classapend="${activeFiction}? 'active'"  class="list-group-item list-group-item-action">Fiction</a>
+					<a th:href="@{/searchByCategory(category='Engineering')}" th:classapend="${activeEngineering}? 'active'"  class="list-group-item list-group-item-action">Engineering</a>
+					<a th:href="@{/searchByCategory(category='Programming')}" th:classapend="${activeProgramming}? 'active'"  class="list-group-item list-group-item-action">Programming</a>
+					<a th:href="@{/searchByCategory(category='Arts &amp; Literature')}" th:classapend="${activeArtsLiterature}? 'active'"  class="list-group-item list-group-item-action">Arts &amp; Literature</a>
+				</div>
+			</div>
+			<div class="col-9">
+				<div th:if="${isEmptyBookList}">
 					<h5 style="font-style: italic;">Oops, no result is found. Try something else or try again later.</h5>
 				</div>
 				
@@ -57,8 +68,24 @@
 		</div>
 	</div>
 	<!-- end of container -->
-
+	<div th:replace="common/header :: footer"></div>
 
 	<div th:replace="common/header :: body-bottom-scripts" />
+	
+	<script>
+		$(document).ready(function(){
+			$('#bookList').DataTable({
+				lengthMenu: [ [5, 10, 20, -1], [5, 10, 20, "All"] ],
+				ordering: false,
+				stateSave: true
+			})
+			
+			$('#bookList').on('page.dt', function(){
+				$('html, body').animate({
+					scrollTop: $('#bookList').offset().top
+				}, 200)
+			})
+		})
+	</script>
   </body>
 </html>

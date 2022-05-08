@@ -71,6 +71,14 @@ public class HomeController {
 		return "index";
 	}
 	
+	@RequestMapping("/hours")
+	public String hours() {
+		return "hours";
+	}
+	@RequestMapping("/faq")
+	public String faq() {
+		return "faq";
+	}
 	@RequestMapping("/bookshelf")
 	public String bookshelf(Model model, Principal principal) {
 		List<Book> bookList = bookService.findAll();
@@ -79,6 +87,7 @@ public class HomeController {
 			model.addAttribute("user", user);
 		}
 		model.addAttribute("bookList", bookList);
+		model.addAttribute("activAll", true);
 		return "bookshelf";
 	}
 	
@@ -159,7 +168,7 @@ public class HomeController {
 	@RequestMapping("/login")
 	public String login(Model model) {
 		model.addAttribute("classActiveLogin", true);
-		
+		model.addAttribute("classActiveNewUsere", false);
 		return "myAccount";
 	}
 	

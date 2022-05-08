@@ -28,4 +28,8 @@ public class BookServiceImpl implements BookService{
 	public Book findById(Long id) {
 		return bookRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(id.toString()));
 	}
+	
+	public void removeById(Long id) {
+		bookRepository.deleteById(id);
+	}
 }
